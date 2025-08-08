@@ -10,14 +10,13 @@
 <body class="login-page-body">
 
   <div class="login-container-enhanced">
-    <a href="../index.html">
-      <img src="../assets/images/LOGO.PNG" alt="Echo Logo" class="logo-large" />
+    <a href="home.html">
+      <img src="../assets/images/LOGO.PNG" alt="Echo Logo" class="logo" />
     </a>
 
     <h2 class="login-title">Login to Echo</h2>
     <p class="login-subtitle">Secure and simple banking</p>
 
-    <!-- ✅ Corrected form path to home.html (same folder) -->
     <form class="login-form" onsubmit="event.preventDefault(); window.location.href='home.html';">
       <label>Email</label>
       <input type="email" required />
@@ -28,7 +27,6 @@
       <button type="submit">Log In</button>
     </form>
 
-    <!-- ✅ Corrected guest button path -->
     <div class="guest-login">
       <p>or</p>
       <button onclick="window.location.href='home.html'">Continue as Guest</button>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home</title>
+  <link rel="stylesheet" href="/styles/style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="navbar">
+    <a href="/index.html">
+      <img src="/assets/images/LOGO.PNG" alt="Echo Logo" class="logo" />
+    </a>
+    <div class="top-icons">
+      <!-- Hamburger Menu -->
+      <div class="dropdown">
+        <button class="icon-button" onclick="toggleDropdown()">☰</button>
+        <div id="dropdownContent" class="dropdown-content">
+          <a href="insights.html">📊 Insights</a>
+          <a href="savings.html">💰 Savings</a>
+          <a href="goals.html">🎯 Goals</a>
+        </div>
+      </div>
+      <a href="settings.html" class="icon-button">⚙️</a>
+      <a href="chat.html" class="icon-button">👤</a>
+      <a href="echolife.html" class="icon-button premium-star">⭐</a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="home-container">
+    <section class="welcome-card">
+      <h2>Welcome back, Alex 👋</h2>
+      <p class="balance-label">Current Balance</p>
+      <p class="balance-amount">£2,450.00</p>
+      <p class="last-transaction">Last transaction: Coffee Shop - £4.75</p>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+      <h3>Quick Actions</h3>
+      <div class="actions">
+        <button onclick="openModal('sendModal')">Send</button>
+        <button onclick="openModal('requestModal')">Request</button>
+        <button onclick="openModal('topupModal')">Top Up</button>
+      </div>
+    </section>
+
+    <!-- Modals for Actions -->
+    <div id="sendModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('sendModal')">&times;</span>
+        <h2>💸 Send Money</h2>
+        <label for="sendTo">Send to:</label>
+        <input type="text" id="sendTo" placeholder="Name or Email" />
+        <label for="sendAmount">Amount (£):</label>
+        <input type="number" id="sendAmount" placeholder="e.g. 50" />
+        <button class="cta-button" onclick="handleAction('sendModal')">Send Now</button>
+      </div>
+    </div>
+
+    <div id="requestModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('requestModal')">&times;</span>
+        <h2>📥 Request Money</h2>
+        <label for="requestFrom">Request from:</label>
+        <input type="text" id="requestFrom" placeholder="Name or Email" />
+        <label for="requestAmount">Amount (£):</label>
+        <input type="number" id="requestAmount" placeholder="e.g. 30" />
+        <button class="cta-button" onclick="handleAction('requestModal')">Send Request</button>
+      </div>
+    </div>
+
+    <div id="topupModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('topupModal')">&times;</span>
+        <h2>💳 Top Up Account</h2>
+        <label for="topupAmount">Amount to Top Up (£):</label>
+        <input type="number" id="topupAmount" placeholder="e.g. 100" />
+        <button class="cta-button" onclick="handleAction('topupModal')">Top Up Now</button>
+      </div>
+    </div>
+
+    <!-- Spending & Transactions -->
+    <section class="spending-summary card">
+      <h3>Spending This Month</h3>
+      <ul class="spending-list">
+        <li><span>Groceries</span><span>£320</span></li>
+        <li><span>Transport</span><span>£115</span></li>
+        <li><span>Dining</span><span>£142</span></li>
+        <li><span>Subscriptions</span><span>£47</span></li>
+      </ul>
+    </section>
+
+    <section class="recent-transactions card">
+      <h3>Recent Transactions</h3>
+      <ul class="transactions-list">
+        <li><span>🛒 Tesco</span><span>−£34.25</span></li>
+        <li><span>☕ Starbucks</span><span>−£4.75</span></li>
+        <li><span>🎧 Spotify</span><span>−£9.99</span></li>
+        <li><span>💰 Incoming Transfer</span><span>+£250.00</span></li>
+      </ul>
+    </section>
+
+    <!-- Goal and Referral -->
+    <section class="goal-preview card">
+      <h3>Savings Goal</h3>
+      <p>💻 New Laptop</p>
+      <p>£450 saved of £1200</p>
+      <div class="progress-bar">
+        <div class="progress" style="width: 37.5%;"></div>
+      </div>
+    </section>
+
+    <section class="referral-banner card">
+      <p>🏱 Invite friends and earn £10 for each signup!</p>
+      <button class="cta-button">Invite Now</button>
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function handleAction(modalId) {
+      closeModal(modalId);
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    }
+
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    window.addEventListener('click', function(e) {
+      const dropdown = document.querySelector('.dropdown');
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

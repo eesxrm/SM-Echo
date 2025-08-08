@@ -1,0 +1,86 @@
+<!-- EchoLife Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LifeEcho - Premium Assistant</title>
+  <link rel="stylesheet" href="/styles/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="/index.html">
+      <img src="/assets/images/logo.png" alt="Echo Logo" class="logo" />
+    </a>
+    <div class="top-icons">
+      <div class="dropdown">
+        <button class="icon-button" onclick="toggleDropdown()">☰</button>
+        <div id="dropdownContent" class="dropdown-content">
+          <a href="insights.html">📊 Insights</a>
+          <a href="savings.html">💰 Savings</a>
+          <a href="goals.html">🎯 Goals</a>
+        </div>
+      </div>
+      <a href="settings.html" class="icon-button">⚙️</a>
+      <a href="chat.html" class="icon-button">👤</a>
+      <a href="echolife.html" class="icon-button premium-star">⭐</a>
+    </div>
+  </header>
+
+  <main class="premium-container">
+    <h1>⭐ Welcome to LifeEcho</h1>
+    <p class="premium-subtitle">Your Premium AI Financial Advisor – exclusive to Echo Premium users.</p>
+
+    <section class="premium-feature-card">
+      <h2>👩‍💼 Meet Janet – Your Personal AI Advisor</h2>
+      <p>LifeEcho is your elite financial assistant designed to provide:</p>
+      <ul>
+        <li>📊 Tailored tax planning and filing support</li>
+        <li>🏡 Personalised mortgage insights & rate comparisons</li>
+        <li>📅 Budgeting and retirement forecasting</li>
+        <li>🧠 Smart strategies based on your goals and income</li>
+      </ul>
+      <p class="premium-note">🚀 This service is only available to Echo Premium members.</p>
+      <div class="center-upgrade-button">
+        <button class="cta-button" onclick="openModal('lifeSyncModal')">Upgrade to LifeSync</button>
+      </div>
+      
+    </section>
+  </main>
+
+  <!-- Modal: LifeSync Upgrade -->
+  <div id="lifeSyncModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('lifeSyncModal')">&times;</span>
+      <h2>🌟 Upgrade to LifeSync</h2>
+      <p>Gain full access to LifeEcho with tax tools, mortgage help, and smarter financial planning – all personalised to your lifestyle.</p>
+      <p>Start your 7-day free trial or subscribe anytime. No strings attached.</p>
+      <button class="cta-button">Start Free Trial</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    window.addEventListener('click', function(e) {
+      const modal = document.getElementById('lifeSyncModal');
+      if (modal && !modal.contains(e.target) && e.target.className !== 'cta-button') {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Savings</title>
+  <link rel="stylesheet" href="/styles/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="/index.html">
+      <img src="/assets/images/LOGO.PNG" alt="Echo Logo" class="logo" />
+    </a>
+    <div class="top-icons">
+      <!-- Hamburger Menu -->
+      <div class="dropdown">
+        <button class="icon-button" onclick="toggleDropdown()">☰</button>
+        <div id="dropdownContent" class="dropdown-content">
+          <a href="insights.html">📊 Insights</a>
+          <a href="savings.html">💰 Savings</a>
+          <a href="goals.html">🎯 Goals</a>
+        </div>
+      </div>
+      <a href="settings.html" class="icon-button">⚙️</a>
+      <a href="chat.html" class="icon-button">👤</a>
+      <a href="echolife.html" class="icon-button premium-star">⭐</a>
+    </div>
+  </header>
+
+  <main class="home-container">
+    <section class="welcome-card">
+      <h2>Your Savings Goals</h2>
+      <p>Here's how you're progressing this month 👇</p>
+    </section>
+
+    <!-- Savings Goals -->
+    <section class="card">
+      <h3>🏖 Holiday Fund</h3>
+      <p>£450 saved out of £800</p>
+      <div class="progress-bar"><div class="progress" style="width: 56%"></div></div>
+    </section>
+
+    <section class="card">
+      <h3>🚗 New Car</h3>
+      <p>£1,200 saved out of £5,000</p>
+      <div class="progress-bar"><div class="progress" style="width: 24%"></div></div>
+    </section>
+
+    <section class="card">
+      <h3>🎓 Tuition</h3>
+      <p>£2,100 saved out of £3,000</p>
+      <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
+    </section>
+
+    <!-- Create New Goal -->
+    <section class="card">
+      <button class="cta-button" onclick="openModal('goalModal')">+ Create New Goal</button>
+    </section>
+
+    <!-- Smart Savings Tips -->
+    <section class="card">
+      <h2>💡 Smart Tips</h2>
+      <div class="badge-grid">
+        <div class="badge">☕️ Skip coffee 3x/week = +£20</div>
+        <div class="badge">💳 Round-up purchases</div>
+        <div class="badge">🎁 No-spend Sundays</div>
+        <div class="badge">🚶 Walk to work = +£10/week</div>
+      </div>
+    </section>
+
+    <!-- Referral CTA -->
+    <section class="card referral-banner">
+      <p>🎉 Refer a friend and both get £10 when they save £100!</p>
+      <button class="cta-button" onclick="openModal('referralModal')">Refer & Save</button>
+    </section>
+  </main>
+
+  <!-- Modal: Create New Goal -->
+  <div id="goalModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('goalModal')">&times;</span>
+      <h2>🎯 Create a New Goal</h2>
+      <form>
+        <label for="goalName">Goal Name:</label>
+        <input type="text" id="goalName" placeholder="e.g. New Laptop" />
+
+        <label for="targetAmount">Target Amount (£):</label>
+        <input type="number" id="targetAmount" placeholder="e.g. 1500" />
+
+        <label for="currentAmount">Current Amount (£):</label>
+        <input type="number" id="currentAmount" placeholder="e.g. 250" />
+
+        <button type="submit" class="cta-button">Add Goal</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Referral -->
+  <div id="referralModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('referralModal')">&times;</span>
+      <img src="/assets/images/coin.png" alt="Golden Coin" class="coin-img" />
+      <h2>💸 Invite & Earn</h2>
+      <p>Share Echo with a friend. When they save £100, both of you get £10 — it’s that easy!</p>
+      <button class="cta-button" onclick="closeModal('referralModal')">Got It!</button>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown');
+      dropdown.classList.toggle('open');
+    }
+  
+    // Optional: Close dropdown when clicking outside
+    window.addEventListener('click', function(e) {
+      const dropdown = document.querySelector('.dropdown');
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+  </script>
+
+  <script>
+    // Apply saved theme on load (works on every page)
+    (function applySavedTheme(){
+      const saved = localStorage.getItem('echo-theme');
+      const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const useDark = saved ? saved === 'dark' : prefers;
+      document.body.classList.toggle('dark-mode', useDark);
+  
+      // Hint to the browser we support both color schemes
+      if (!document.querySelector('meta[name="color-scheme"]')) {
+        const meta = document.createElement('meta');
+        meta.name = 'color-scheme';
+        meta.content = 'light dark';
+        document.head.appendChild(meta);
+      }
+    })();
+  
+    // Hamburger dropdown shared behavior
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown) dropdown.classList.toggle('open');
+    }
+    window.addEventListener('click', function(e) {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown && !dropdown.contains(e.target)) dropdown.classList.remove('open');
+    });
+  
+    // Optional: react to changes from other tabs/windows
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'echo-theme') {
+        document.body.classList.toggle('dark-mode', e.newValue === 'dark');
+      }
+    });
+  </script>
+  
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Goals</title>
+  <link rel="stylesheet" href="/styles/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="/index.html">
+      <img src="/assets/images/LOGO.PNG" alt="Echo Logo" class="logo" />
+    </a>
+    <div class="top-icons">
+      <!-- Hamburger Menu -->
+      <div class="dropdown">
+        <button class="icon-button" onclick="toggleDropdown()">☰</button>
+        <div id="dropdownContent" class="dropdown-content">
+          <a href="insights.html">📊 Insights</a>
+          <a href="savings.html">💰 Savings</a>
+          <a href="goals.html">🎯 Goals</a>
+        </div>
+      </div>
+      <a href="settings.html" class="icon-button">⚙️</a>
+      <a href="chat.html" class="icon-button">👤</a>
+      <a href="echolife.html" class="icon-button premium-star">⭐</a>
+    </div>
+  </header>
+
+  <main class="home-container">
+
+    <section class="welcome-card">
+      <h2>🎯 Your Financial Goals</h2>
+      <p>You’re smashing it! Here’s your progress this month 🚀</p>
+    </section>
+
+    <!-- Goal 1 -->
+    <section class="card goal-preview">
+      <h3>💻 New Laptop</h3>
+      <p>£800 saved out of £1,200</p>
+      <div class="progress-bar"><div class="progress" style="width: 66%"></div></div>
+      <p><strong>34% remaining</strong></p>
+      <button class="cta-button" onclick="openGoalEditor(this, '💻 New Laptop', 1200, 800)">Update Goal</button>
+    </section>
+
+    <!-- Goal 2 -->
+    <section class="card goal-preview">
+      <h3>💍 Wedding Fund</h3>
+      <p>£2,500 saved out of £5,000</p>
+      <div class="progress-bar"><div class="progress" style="width: 50%"></div></div>
+      <p><strong>50% remaining</strong></p>
+      <button class="cta-button" onclick="openGoalEditor(this, '💍 Wedding Fund', 5000, 2500)">Update Goal</button>
+    </section>
+
+    <!-- Goal 3 -->
+    <section class="card goal-preview">
+      <h3>🚨 Emergency Fund</h3>
+      <p>£1,100 saved out of £2,000</p>
+      <div class="progress-bar"><div class="progress" style="width: 55%"></div></div>
+      <p><strong>45% remaining</strong></p>
+      <button class="cta-button" onclick="openGoalEditor(this, '🚨 Emergency Fund', 2000, 1100)">Update Goal</button>
+    </section>
+
+    <!-- Add New Goal -->
+    <section class="card">
+      <button class="cta-button" onclick="openModal('createGoalModal')">+ Add New Goal</button>
+    </section>
+
+    <!-- Motivation -->
+    <section class="card">
+      <h3>🌟 Keep Going!</h3>
+      <p>“A penny saved is a penny earned.” You’re doing better than 80% of savers this month!</p>
+    </section>
+
+  </main>
+
+  <!-- Modal: Create New Goal -->
+  <div id="createGoalModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('createGoalModal')">&times;</span>
+      <h2>🎯 Set a New Goal</h2>
+      <form>
+        <label>Goal Name:</label>
+        <input type="text" placeholder="e.g. New Phone" />
+        <label>Target Amount (£):</label>
+        <input type="number" placeholder="e.g. 900" />
+        <label>Current Amount (£):</label>
+        <input type="number" placeholder="e.g. 100" />
+        <button type="submit" class="cta-button">Add Goal</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Update Goal -->
+  <div id="updateGoalModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('updateGoalModal')">&times;</span>
+      <h2>✏️ Update Goal</h2>
+      <form onsubmit="saveGoalUpdate(event)">
+        <label>Goal:</label>
+        <input type="text" id="goalTitle" readonly />
+        <label>Target Amount (£):</label>
+        <input type="number" id="goalTarget" readonly />
+        <label>Update Saved Amount (£):</label>
+        <input type="number" id="goalSaved" />
+        <button type="submit" class="cta-button">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    let currentGoalSection = null;
+
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function openGoalEditor(button, title, target, saved) {
+      currentGoalSection = button.closest('.goal-preview');
+      document.getElementById('goalTitle').value = title;
+      document.getElementById('goalTarget').value = target;
+      document.getElementById('goalSaved').value = saved;
+      openModal('updateGoalModal');
+    }
+
+    function saveGoalUpdate(e) {
+      e.preventDefault();
+      if (!currentGoalSection) return;
+
+      const saved = parseFloat(document.getElementById('goalSaved').value);
+      const target = parseFloat(document.getElementById('goalTarget').value);
+      const percent = Math.min((saved / target) * 100, 100).toFixed(0);
+      const remaining = 100 - percent;
+
+      // Update card content
+      currentGoalSection.querySelector('p').innerText = `£${saved} saved out of £${target}`;
+      currentGoalSection.querySelector('.progress').style.width = `${percent}%`;
+      currentGoalSection.querySelectorAll('p')[1].innerHTML = `<strong>${percent >= 100 ? '🎉 Goal Complete!' : `${remaining}% remaining`}</strong>`;
+
+      closeModal('updateGoalModal');
+    }
+  </script>
+
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown');
+      dropdown.classList.toggle('open');
+    }
+  
+    // Optional: Close dropdown when clicking outside
+    window.addEventListener('click', function(e) {
+      const dropdown = document.querySelector('.dropdown');
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+  </script>
+
+  <script>
+    // Apply saved theme on load (works on every page)
+    (function applySavedTheme(){
+      const saved = localStorage.getItem('echo-theme');
+      const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const useDark = saved ? saved === 'dark' : prefers;
+      document.body.classList.toggle('dark-mode', useDark);
+  
+      // Hint to the browser we support both color schemes
+      if (!document.querySelector('meta[name="color-scheme"]')) {
+        const meta = document.createElement('meta');
+        meta.name = 'color-scheme';
+        meta.content = 'light dark';
+        document.head.appendChild(meta);
+      }
+    })();
+  
+    // Hamburger dropdown shared behavior
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown) dropdown.classList.toggle('open');
+    }
+    window.addEventListener('click', function(e) {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown && !dropdown.contains(e.target)) dropdown.classList.remove('open');
+    });
+  
+    // Optional: react to changes from other tabs/windows
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'echo-theme') {
+        document.body.classList.toggle('dark-mode', e.newValue === 'dark');
+      }
+    });
+  </script>
+  
+
+</body>
+</html>

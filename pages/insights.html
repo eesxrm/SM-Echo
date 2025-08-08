@@ -1,0 +1,213 @@
+<!-- insights.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Insights</title>
+  <link rel="stylesheet" href="/styles/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="/index.html">
+      <img src="/assets/images/LOGO.PNG" alt="Echo Logo" class="logo" />
+    </a>
+    <div class="top-icons">
+      <!-- Hamburger Menu -->
+      <div class="dropdown">
+        <button class="icon-button" onclick="toggleDropdown()">☰</button>
+        <div id="dropdownContent" class="dropdown-content">
+          <a href="insights.html">📊 Insights</a>
+          <a href="savings.html">💰 Savings</a>
+          <a href="goals.html">🎯 Goals</a>
+        </div>
+      </div>
+      <a href="settings.html" class="icon-button">⚙️</a>
+      <a href="chat.html" class="icon-button">👤</a>
+      <a href="echolife.html" class="icon-button premium-star">⭐</a>
+    </div>
+  </header>
+
+
+  <main class="home-container">
+
+    <!-- Page Title / Welcome -->
+    <section class="welcome-card">
+      <h2>📊 Your Financial Insights</h2>
+      <p>Here’s a quick overview of your spending, suggestions, and rewards this month 💡</p>
+    </section>
+
+    <!-- Monthly Insight -->
+    <section class="card">
+      <h2>📈 Monthly Insight</h2>
+      <p>Here's your spending breakdown for August:</p>
+      <ul class="spending-list">
+        <li><span>🛒 Groceries</span><span>£320</span></li>
+        <li><span>🚗 Transport</span><span>£115</span></li>
+        <li><span>🍔 Dining</span><span>£142</span></li>
+        <li><span>📺 Subscriptions</span><span>£47</span></li>
+        <li><span>🎉 Entertainment</span><span>£85</span></li>
+      </ul>
+      <button class="cta-button" onclick="openModal('graphModal')">View Detailed Graph</button>
+    </section>
+
+    <!-- Smart Suggestions -->
+    <section class="card">
+      <h2>🧠 Smart Suggestions</h2>
+      <p>Based on your spending, Echo recommends:</p>
+      <ul>
+        <li>💡 Set a cap for Dining at £120/month</li>
+        <li>🚶 Walk/bike 2x a week to reduce transport costs</li>
+        <li>🔔 Enable alerts for Entertainment spending</li>
+      </ul>
+      <button class="cta-button" onclick="openModal('budgetModal')">Adjust Budgets</button>
+    </section>
+
+    <!-- Rewards and Gamification -->
+    <section class="card">
+      <h2>🏆 Rewards & Gamification</h2>
+      <p>You've unlocked:</p>
+      <ul>
+        <li>🎯 "Weekly Saver" – Saved 3 weeks in a row</li>
+        <li>🔥 "No-Spend Day" – 4 times this month</li>
+        <li>💪 "Consistent Logger" – Tracked spending daily</li>
+      </ul>
+      <button class="cta-button" onclick="openModal('badgesModal')">View All Badges</button>
+    </section>
+
+    <!-- Weekly Email Summary -->
+    <section class="card">
+      <h2>📬 Weekly Email Summary</h2>
+      <p>Echo emails you a digest every Sunday with:</p>
+      <ul>
+        <li>📊 Top spending categories</li>
+        <li>📉 Week-over-week insights</li>
+        <li>🪄 Tailored saving suggestions</li>
+      </ul>
+      <button class="cta-button" onclick="openModal('notificationsModal')">Manage Notifications</button>
+    </section>
+
+  </main>
+
+  <!-- Modal: Detailed Graph -->
+  <div id="graphModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('graphModal')">&times;</span>
+      <h2>📊 Detailed Spending Graph</h2>
+      <p>Visual breakdown of your spending this month by category:</p>
+      <img src="/assets/images/spending.png" alt="Detailed Spending Graph" class="graph-img" />
+    </div>
+  </div>
+
+  <!-- Modal: Adjust Budget -->
+  <div id="budgetModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('budgetModal')">&times;</span>
+      <h2>🛠 Adjust Budgets</h2>
+      <p>Use the slider to set a new dining budget.</p>
+      <label for="budgetRange">Dining Budget:</label>
+      <input type="range" id="budgetRange" min="0" max="500" value="120" />
+      <p>New Limit: <strong>£<span id="budgetValue">120</span></strong></p>
+    </div>
+  </div>
+
+  <!-- Modal: View All Badges -->
+  <div id="badgesModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('badgesModal')">&times;</span>
+      <h2>🏅 All Achievements</h2>
+      <p>You’ve earned the following badges:</p>
+      <ul>
+        <li>💸 Frugal Master – Spent under £500 this month</li>
+        <li>📆 Streak Holder – Logged in daily for 7 days</li>
+        <li>💰 Top Saver – Hit 90% of savings goal</li>
+        <li>🚫 No Impulse – 5 days no unplanned buys</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal: Manage Notifications -->
+  <div id="notificationsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('notificationsModal')">&times;</span>
+      <h2>🔔 Notification Settings</h2>
+      <label><input type="checkbox" checked> Weekly Email Summary</label><br/>
+      <label><input type="checkbox" checked> Daily Tip Notifications</label><br/>
+      <label><input type="checkbox"> Monthly Budget Review</label><br/>
+      <label><input type="checkbox"> Promotional Offers</label>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    const budgetRange = document.getElementById('budgetRange');
+    const budgetValue = document.getElementById('budgetValue');
+    if (budgetRange && budgetValue) {
+      budgetRange.addEventListener('input', () => {
+        budgetValue.textContent = budgetRange.value;
+      });
+    }
+  </script>
+
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown');
+      dropdown.classList.toggle('open');
+    }
+  
+    // Optional: Close dropdown when clicking outside
+    window.addEventListener('click', function(e) {
+      const dropdown = document.querySelector('.dropdown');
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+  </script>
+
+  <script>
+    // Apply saved theme on load (works on every page)
+    (function applySavedTheme(){
+      const saved = localStorage.getItem('echo-theme');
+      const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const useDark = saved ? saved === 'dark' : prefers;
+      document.body.classList.toggle('dark-mode', useDark);
+  
+      // Hint to the browser we support both color schemes
+      if (!document.querySelector('meta[name="color-scheme"]')) {
+        const meta = document.createElement('meta');
+        meta.name = 'color-scheme';
+        meta.content = 'light dark';
+        document.head.appendChild(meta);
+      }
+    })();
+  
+    // Hamburger dropdown shared behavior
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown) dropdown.classList.toggle('open');
+    }
+    window.addEventListener('click', function(e) {
+      const dropdown = document.querySelector('.dropdown');
+      if (dropdown && !dropdown.contains(e.target)) dropdown.classList.remove('open');
+    });
+  
+    // Optional: react to changes from other tabs/windows
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'echo-theme') {
+        document.body.classList.toggle('dark-mode', e.newValue === 'dark');
+      }
+    });
+  </script>
+  
+
+</body>
+</html>

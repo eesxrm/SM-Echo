@@ -1,0 +1,86 @@
+<!-- Chat Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Chat</title>
+  <link rel="stylesheet" href="/styles/style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="/index.html">
+      <img src="/assets/images/LOGO.PNG" alt="Echo Logo" class="logo" />
+    </a>
+    <div class="top-icons">
+      <!-- Hamburger Menu -->
+      <div class="dropdown">
+        <button class="icon-button" onclick="toggleDropdown()">☰</button>
+        <div id="dropdownContent" class="dropdown-content">
+          <a href="insights.html">📊 Insights</a>
+          <a href="savings.html">💰 Savings</a>
+          <a href="goals.html">🎯 Goals</a>
+        </div>
+      </div>
+      <a href="settings.html" class="icon-button">⚙️</a>
+      <a href="chat.html" class="icon-button">👤</a>
+      <a href="echolife.html" class="icon-button premium-star">⭐</a>
+    </div>
+  </header>
+
+  <main class="chat-container">
+    <div class="chat-box" id="chatBox">
+      <div class="message bot">👋 Hi there! I’m EchoBot. How can I help you with your finances today?</div>
+    </div>
+    <form class="chat-input-area" onsubmit="handleChat(event)">
+      <input type="text" id="userInput" placeholder="Type your message..." required />
+      <button type="submit">Send</button>
+    </form>
+  </main>
+
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.querySelector('.dropdown');
+      dropdown.classList.toggle('open');
+    }
+
+    window.addEventListener('click', function (e) {
+      const dropdown = document.querySelector('.dropdown');
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+
+    function handleChat(event) {
+      event.preventDefault();
+      const input = document.getElementById('userInput');
+      const chatBox = document.getElementById('chatBox');
+      const userMessage = input.value.trim();
+      if (!userMessage) return;
+
+      // Add user's message
+      const userMsgDiv = document.createElement('div');
+      userMsgDiv.className = 'message user';
+      userMsgDiv.textContent = '🧑 ' + userMessage;
+      chatBox.appendChild(userMsgDiv);
+
+      // Auto-scroll
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Simulated bot reply
+      const botReply = document.createElement('div');
+      botReply.className = 'message bot';
+      botReply.textContent = '🤖 Let me check that for you...';
+      chatBox.appendChild(botReply);
+
+      input.value = '';
+      setTimeout(() => {
+        botReply.textContent = `🤖 Here's a tip: Set a savings goal to stay motivated!`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1200);
+    }
+  </script>
+
+</body>
+</html>
